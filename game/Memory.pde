@@ -1,0 +1,7 @@
+class Memory {
+  int
+  Memory() {
+    
+  }
+  
+}

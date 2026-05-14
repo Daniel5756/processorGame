@@ -1,0 +1,7 @@
+class Processor {
+  int
+  Processor() {
+    
+  }
+  
+}

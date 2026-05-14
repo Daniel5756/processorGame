@@ -1,0 +1,7 @@
+class MemoryGroup {
+  int
+  MemoryGroup() {
+    
+  }
+  
+}
