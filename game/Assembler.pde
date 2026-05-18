@@ -1,3 +1,5 @@
 class Assembler {
-  public static Register[] assemble() {}  
+  public Register[] assemble() {
+    return null;
+  }  
 }

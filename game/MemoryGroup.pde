@@ -1,6 +1,6 @@
-class MemoryGroup {
-  int
-  MemoryGroup() {
+class MemoryGroup extends Memory {
+  
+  public MemoryGroup() {
     
   }
   

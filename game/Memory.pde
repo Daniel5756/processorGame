@@ -1,7 +1,8 @@
 class Memory {
+  
   Register[] mem;
   
-  Memory() {
+  public Memory() {
     
   }
   

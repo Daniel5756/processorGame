@@ -1,6 +1,6 @@
-class Stack {
-  int
-  Stack() {
+class Stack extends Memory {
+  
+  public Stack() {
     
   }
   

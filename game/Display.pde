@@ -1,6 +1,6 @@
-class Display {
+class Display extends Memory {
   
-  Display() {
+  public Display() {
     
   }
   
