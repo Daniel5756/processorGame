@@ -3,7 +3,7 @@ class Register {
   private int bit;
   
   public Register() {
-    bit = 8; value = 0;
+    bit = 16; value = 0;
   }
   public Register(int bit) {
     this.bit = bit; value = 0;
@@ -12,6 +12,6 @@ class Register {
   public void set(int value) {this.value = value%(1 << bit);}
   
   public int get(int idx) {return ((1 << idx) & value) >> idx;} //get specific bit
-  public void display(int x, int y) {stroke(value*256/pow(2, bit));point(x,y);}
+  public void display(int x, int y) {stroke(value>>(bit-8));point(x,y);}
   
 }
