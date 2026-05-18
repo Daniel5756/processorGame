@@ -1,3 +1,3 @@
 class Assembler {
-  static Register[] assemble() {}  
+  public static Register[] assemble() {}  
 }

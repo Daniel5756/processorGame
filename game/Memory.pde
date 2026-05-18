@@ -1,5 +1,6 @@
 class Memory {
-  int
+  Register[] mem;
+  
   Memory() {
     
   }

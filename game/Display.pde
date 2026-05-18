@@ -1,5 +1,5 @@
 class Display {
-  int
+  
   Display() {
     
   }

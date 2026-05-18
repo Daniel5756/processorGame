@@ -8,6 +8,7 @@ class Register {
     this.bit = bit; value = 0;
   }
   public int get() {return value;}
-  public void set(int value) {this.value = value%Math.pow(2.0, bit);}
+  public void set(int value) {this.value = value%(1 << bit);}
+  public int get(int idx) {return ((1 << idx) & value) >> idx;} //get specific bit
   
 }
