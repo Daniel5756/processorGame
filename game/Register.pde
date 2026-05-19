@@ -14,4 +14,5 @@ class Register {
   public int get(int idx) {return ((1 << idx) & value) >> idx;} //get specific bit
   public void display(int x, int y) {stroke(value>>(bit-8));point(x,y);}
   
+  //OPERATIONS
 }

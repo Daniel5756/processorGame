@@ -1,12 +1,22 @@
 class MemoryGroup extends Memory {
   int aIndex;
-  ArrayList<Memory> mem;
-  public MemoryGroup(Register[] allocation, int start, int len) {
-    super(allocation, start, len);
-    mem = new ArrayList<Memory>();
+  ArrayList<Memory> ram;
+  public MemoryGroup(int len) {
+    super(new Register[len], 0, len);
+    ram = new ArrayList<Memory>();
   }
-  public int malloc(int len) {
-    
+  public Memory malloc(int len) {
+    int out = aIndex;
+    aIndex+=len;
+    ram.add(new Memory(super.mem, out, len));
+    if (aIndex >= super.len) {
+      println("Not enough memory");
+      return null;
+    }
+    return ram.get(ram.size()-1);
   }
-  public ArrayList<Memory> getAllocations () {return mem;}
+  public void free(Memory mem) {
+    ram.remove(mem);
+  }
+  public ArrayList<Memory> getAllocations () {return ram;}
 }

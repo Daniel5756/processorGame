@@ -10,7 +10,9 @@ class Memory {
   public int getStart() {return start;}
   public int getLength() {return len;}
   public void display(int x, int y) {
-    //implement later
+    for (int i = start; i < len+start; i++) {
+      mem[i].display(x+i%8, y+i/8);
+    }
   }
   
 }
