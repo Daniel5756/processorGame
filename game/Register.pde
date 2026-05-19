@@ -15,4 +15,15 @@ class Register {
   public void display(int x, int y) {stroke(value>>(bit-8));point(x,y);}
   
   //OPERATIONS
+  public Register registerOperation(int other, int op) {
+    Register r = new Register(this.bit);
+    r.set(other);
+    return registerOperation(r, op);
+  }
+  public Register registerOperation(Register other, int op) {
+    switch (op) {
+      case 0: //add
+      case 1: //sub
+    }
+  }
 }
