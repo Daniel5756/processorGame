@@ -9,14 +9,14 @@ class Stack extends Memory {
     if (index >= len) {
       index-=len;
     }
-    mem[index+start] = r;
+    mem[index+start] = r.copy();
   }
   public Register pop() {
     index--;
     if (index < 0) {
       index+=len;
     }
-    return mem[index+start];
+    return mem[index+start].copy();
   }
   
 }

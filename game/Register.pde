@@ -12,9 +12,15 @@ class Register {
   public void set(int value) {this.value = value%(1 << bit);}
   
   public int get(int idx) {return ((1 << idx) & value) >> idx;} //get specific bit
-  public void display(int x, int y) {stroke(value>>(bit-8));point(x,y);}
+  public void render(int x, int y) {stroke(value>>(bit-8));point(x,y);}
   
-  public int getBit() {return bit;}
+  public int getSize() {return bit;}
+  
+  public Register copy() {
+    Register r = new Register(bit);
+    r.set(value);
+    return r;
+  }
   
   //OPERATIONS WITH OTHER REGISTERS
   public Register registerOperation(int other, int op) {

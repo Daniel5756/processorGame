@@ -9,7 +9,7 @@ class Memory {
   public void set(Register r, int i) {if (i >= len) {print("segfault");}mem[i+start] = r;}
   public int getStart() {return start;}
   public int getLength() {return len;}
-  public void display(int x, int y) {
+  public void render(int x, int y) {
     for (int i = start; i < len+start; i++) {
       mem[i].display(x+i%8, y+i/8);
     }

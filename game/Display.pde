@@ -3,7 +3,7 @@ class Display extends Memory {
   public Display(Register[] m, int s, int l) {
     super(m, s, l);
   }
-  public void display(int x, int y) {
+  public void render(int x, int y) {
     for (int i = start; i < len+start; i++) {
       int r = mem[i].get();
       int b = mem[i+1].get();
