@@ -30,6 +30,16 @@ class Register {
     r.set(other);
     return registerOperation(r, op);
   }
+  /*
+  0: add
+  1: sub
+  2: mul
+  3: div
+  4: pow
+  5: shl <<
+  6: comp
+  
+  */
   public Register registerOperation(Register other, int op) {
     Register out = new Register(max(this.bit, other.getBit()));
     switch (op) {
@@ -50,6 +60,7 @@ class Register {
         else if (get() > other.get()) {out.set(1);}
         else {out.set(-1);}
         break;
+      case 7: set(other.get()); break;
     }
     return out;
   }
