@@ -9,7 +9,7 @@ class Display extends Memory {
       int b = mem[i+1].get();
       int g = mem[i+2].get();
       stroke(r,b,g);
-      point(x+(i/3)%8, y+(i/3)/8);
+      point(x+(i/3)%256, y+(i/3)/256);
     }
   }
 }

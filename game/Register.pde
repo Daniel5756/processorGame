@@ -22,6 +22,8 @@ class Register {
     return r;
   }
   
+  public int getBit() {return bit;}
+  
   //OPERATIONS WITH OTHER REGISTERS
   public Register registerOperation(int other, int op) {
     Register r = new Register(this.bit);

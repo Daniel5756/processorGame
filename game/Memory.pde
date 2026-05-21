@@ -11,7 +11,7 @@ class Memory {
   public int getLength() {return len;}
   public void render(int x, int y) {
     for (int i = start; i < len+start; i++) {
-      mem[i].display(x+i%8, y+i/8);
+      point(x+i%256, y+i/256);
     }
   }
   
