@@ -38,7 +38,9 @@ class Register {
   4: pow
   5: shl <<
   6: comp
-  
+  7: mov
+  8: psh
+  9: pop
   */
   public Register registerOperation(Register other, int op) {
     Register out = new Register(max(this.bit, other.getBit()));

@@ -32,7 +32,9 @@ class Assembler {
       4: pow
       5: shl <<
       6: cmp
-      7: mov     
+      7: mov    
+      8: psh
+      9: pop
       */
       switch (instr) {
         case "add": in.set(0); break;
@@ -43,6 +45,8 @@ class Assembler {
         case "shl": in.set(5); break;
         case "cmp": in.set(6); break;
         case "mov": in.set(7); break;
+        case "psh": in.set(8); break;
+        case "pop": in.set(9); break;
       }
       out[0][i] = in;
       out[1][i] = op1;
