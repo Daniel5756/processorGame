@@ -1,8 +1,8 @@
 class MemoryGroup extends Memory {
   private int aIndex;
   private ArrayList<Memory> ram;
-  public MemoryGroup(int len) {
-    super(new Register[len], 0, len);
+  public MemoryGroup(Register[] r) {
+    super(r, 0, r.length);
     ram = new ArrayList<Memory>();
   }
   public Memory allocate(int len) {
