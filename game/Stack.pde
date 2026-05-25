@@ -5,18 +5,21 @@ class Stack extends Memory {
     index = 0;
   }
   public void push(Register r) {
-    index++;
+    
     if (index >= len) {
       index-=len;
     }
     mem[index+start] = r.copy();
+    index++;
   }
   public Register pop() {
-    index--;
+    
     if (index < 0) {
       index+=len;
     }
-    return mem[index+start].copy();
+    Register r =  mem[index+start].copy();
+    index--;
+    return r;
   }
   
 }

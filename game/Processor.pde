@@ -3,26 +3,62 @@ class Processor {
   Display sprites;
   Memory heap;
   MemoryGroup mem;
-  Stack s;
+  Stack stack;
   Register[] ram;
+  Register[][] instr;
+  int currentPart;
   /*
   0: add
   1: sub
   2: mul
   3: div
   4: pow
-  5: shl <<
+  5: shl << (double)
   6: comp
   7: mov
+
   8: psh
   9: pop
   10: jmp
+  11: end
   */
-  public Processor() {
-    ram = new Register[int(pow(2, 19))]; //<- big number: 256x512 heap+stack, 3*256x256 sprites, 3*256*256 display: 4 MB ram needed...\
+  public Processor(String instructions) {
+    ram = new Register[1<<19]; //<- big number: 256x512 heap+stack, 3*256x256 sprites, 3*256*256 display: 4 MB ram needed...\
+    for (int i = 0; i < ram.length; i++) {
+      ram[i] = new Register();
+    }
     mem = new MemoryGroup(ram);
-    heap = mem
     
+    heap = mem.allocate(256*512);
+    stack = mem.allocateStack(256*128);
+    screen = mem.allocateDisplay(3*256*256);
+    sprites = mem.allocateDisplay(3*256*256);
+    
+    instr = new Assembler().assemble(instructions);
   }
-  
+  public void step() {
+    Register[] instruction = instr[currentPart];
+    if (instruction[0].get() < 8) {
+      if (instruction[3] != null) {
+        mem.get(instruction[1].get()).registerOperation(instruction[3].get(), instruction[0].get());
+      }
+      else if (instruction[2] != null) {
+        mem.get(instruction[1].get()).registerOperation(mem.get(instruction[2].get()), instruction[0].get());
+      }
+    }
+    if (instruction[0].get() == 8) {stack.push(mem.get(instruction[1].get()));}
+    if (instruction[0].get() == 9) {mem.set(stack.pop(), instruction[1].get());}
+    if (instruction[0].get() == 10) {
+      if (mem.get(instruction[1].get()).get() == 1) {                                //SPAGHETTI!!!!!!!!
+        currentPart = instruction[3].get(); return;
+      }
+    }
+    currentPart++;
+  }
+  public void run() {
+    while(instr[currentPart][0] != null) {
+      if (instr[currentPart][0].get() == 11) {break;}
+      step();
+    }
+  }
 }
