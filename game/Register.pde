@@ -1,20 +1,20 @@
 class Register {
-  private int value;
-  private int bit;
+  private byte value;
+  private byte bit;
   
   public Register() {
-    bit = 16; value = 0;
+    bit = 8; value = 0;
   }
-  public Register(int bit) {
+  public Register(byte bit) {
     this.bit = bit; value = 0;
   }
-  public int get() {return value;}
-  public void set(int value) {this.value = value%(1 << bit);}
+  public byte get() {return value;}
+  public void set(byte value) {this.value = (byte) value;}
   
-  public int get(int idx) {return ((1 << idx) & value) >> idx;} //get specific bit
-  public void render(int x, int y) {stroke(value>>(bit-8));point(x,y);}
+  //public byte get(byte idx) {return ((1 << idx) & value) >> idx;} //get specific bit
+  public void render(byte x, byte y) {stroke(value>>(bit-8));point(x,y);}
   
-  public int getSize() {return bit;}
+  public byte getSize() {return bit;}
   
   public Register copy() {
     Register r = new Register(bit);
@@ -22,10 +22,10 @@ class Register {
     return r;
   }
   
-  public int getBit() {return bit;}
+  public byte getBit() {return bit;}
   
   //OPERATIONS WITH OTHER REGISTERS
-  public void registerOperation(int other, int op) {
+  public void registerOperation(byte other, byte op) {
     Register r = new Register(this.bit);
     r.set(other);
     registerOperation(r, op);
@@ -42,25 +42,26 @@ class Register {
   8: psh
   9: pop
   */
-  public void registerOperation(Register other, int op) {
+  
+  public void registerOperation(Register other, byte op) {
     //Register out = new Register(max(this.bit, other.getBit()));
     switch (op) {
       case 0: //add
-        set(get()+other.get()); break;
+        set((byte) (get()+ other.get())); break;
       case 1: //sub
-        set(get()-other.get()); break;
+        set((byte) (get()-other.get())); break;
       case 2: //mul
-        set(get()*other.get()); break;
+        set((byte) (get()*other.get())); break;
       case 3: //div
-        set(get()/other.get()); break;
+        set((byte) (get()/other.get())); break;
       case 4: //pow
-        set(int(pow(get(),other.get()))); break;
+        set(byte(pow(get(),other.get()))); break;
       case 5: //bitshiftL
-        set(get()<<other.get()); break;
+        set((byte) (get()<<other.get())); break;
       case 6: //comparison to other: if more: 1, equal: 0, less: -1
-        if (get() == other.get()) {set(0);}
-        else if (get() > other.get()) {set(1);}
-        else {set(-1);}
+        if (get() == other.get()) {set((byte) 0);}
+        else if (get() > other.get()) {set((byte) 1);}
+        else {set((byte) -1);}
         break;
       case 7: set(other.get()); break;
     }

@@ -1,12 +1,16 @@
 class Processor {
-  Display screen;
-  Display sprites;
-  Memory heap;
-  MemoryGroup mem;
-  Stack stack;
-  Register[] ram;
-  Register[][] instr;
-  int currentPart;
+  public Display screen;
+  public Display sprites;
+  public Memory heap;
+  public MemoryGroup mem;
+  public Stack stack;
+  public Register[] ram;
+  
+  private Register[][] instr;
+  private int currentPart;
+  public Register[][] getInstr() {return instr;}
+  public int getPlace() {return currentPart;}
+  
   /*
   0: add
   1: sub
@@ -22,17 +26,17 @@ class Processor {
   10: jmp
   11: end
   */
-  public Processor(String instructions) {
+  public Processor(String[] instructions) {
     ram = new Register[1<<19]; //<- big number: 256x512 heap+stack, 3*256x256 sprites, 3*256*256 display: 4 MB ram needed...\
     for (int i = 0; i < ram.length; i++) {
       ram[i] = new Register();
     }
     mem = new MemoryGroup(ram);
     
-    heap = mem.allocate(256*512);
-    stack = mem.allocateStack(256*128);
-    screen = mem.allocateDisplay(3*256*256);
-    sprites = mem.allocateDisplay(3*256*256);
+    heap = mem.allocate((128+256)*512);
+    stack = mem.allocateStack(2);//56*128);
+    screen = mem.allocateDisplay(3);//*256*256);
+    sprites = mem.allocateDisplay(3);//*256*256);
     
     instr = new Assembler().assemble(instructions);
   }
@@ -54,11 +58,5 @@ class Processor {
       }
     }
     currentPart++;
-  }
-  public void run() {
-    while(instr[currentPart][0] != null) {
-      if (instr[currentPart][0].get() == 11) {break;}
-      step();
-    }
   }
 }
