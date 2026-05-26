@@ -1,6 +1,6 @@
 import java.util.Scanner;
 class Assembler {
-  /*
+  /*ogohif  wghuilg oiwqy bwjlhc fujh iptbjn 34iopqm bfop4q3im opwrjksl;aifhyiljnsxopijknopqjhpoij53p jiphdipjgntipjknio uhnequiofn seipbn p o4jwjoijq[v jt[oi [oijq3o[ij  o[ijh[k  1\[pk [gpk'k  ]kap[o j[oj oe 5o[ejw3[o jh[ejy6j g,m e5yokmwto[khmo[kmojno5y '
   add %r1 %r2
   
   */
@@ -23,8 +23,8 @@ class Assembler {
             op1 = int(line[1].substring(1));
           }
           if (line.length > 2) {
-            if (line[2].charAt(0) == '$') {op2int = (int) int(line[2].substring(1)); op2 = 0;}
-            else {op2 = int(line[2]); op2int = 0;}
+            if (line[2].charAt(0) == '$') {op2int = (int) unhex(line[2].substring(1)); op2 = -1;}
+            else {op2 = unhex(line[2]); op2int = 0;}
           }
           /*
           0: add
@@ -52,6 +52,8 @@ class Assembler {
             case "pop": in = 9; break;        
             case "jmp": in = 10; break;
             case "end": in = 11; break;
+            case "cll": in = 12; break;
+            case "ret": in = 13; break;
           }
           out[i][0] = in;
           out[i][1] = op1;
