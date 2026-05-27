@@ -11,7 +11,7 @@ class Assembler {
     int[][] out = new int[pgm.length][4];
     int i = 0;
     for (String lineString: pgm) {
-      String[] line = lineString.split(" ");
+      String[] line = lineString.split("\\s+");
       if (line.length != 0) {
         String instr = line[0];
         int in = 0;
@@ -20,7 +20,7 @@ class Assembler {
         int op2int = 0;
         if (line[0].charAt(0) != '#') {//comment
           if (line.length > 1) {
-            op1 = int(line[1].substring(1));
+            op1 = int(line[1].substring(0));
           }
           if (line.length > 2) {
             if (line[2].charAt(0) == '$') {op2int = (int) unhex(line[2].substring(1)); op2 = -1;}
@@ -54,6 +54,7 @@ class Assembler {
             case "end": in = 11; break;
             case "cll": in = 12; break;
             case "ret": in = 13; break;
+            case "mea": in = 14; break; //mov but it moves mov ((input-addr)) thing
           }
           out[i][0] = in;
           out[i][1] = op1;
