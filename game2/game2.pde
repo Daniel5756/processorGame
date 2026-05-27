@@ -18,8 +18,8 @@ void setup() {
     "end 0"
   };
 String[] program = {
-  "mov 0 $FF",          // pointer starts at 255
-  "mea 0 $FF0000FF",    // write blue at pixels[pixels[0]]
+  "mov 0 $20000",          // pointer starts at 255
+  "mea 0 $FFFF00FF",    // write blue at pixels[pixels[0]]
   "add 0 $1",           // pointer++
   "mov 1 $40000",       // limit
   "sub 1 0",            // [1] = 0x40000 - [0]
