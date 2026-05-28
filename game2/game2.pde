@@ -27,6 +27,10 @@ String[] program = {
   "jmp 1 $1",           // loop back to mea
   "end 0"
 };
+String[] dinoGame = {
+  ""
+  
+};
   frameRate=60;
   proc = new Processor(program);
   done = false;
