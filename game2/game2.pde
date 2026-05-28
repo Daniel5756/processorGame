@@ -27,6 +27,25 @@ String[] program = {
   "jmp 1 $1",           // loop back to mea
   "end 0"
 };
+/*
+//add a random assembly instruction and a keyboard instructiuon
+
+sprite copier:
+  after each row add 512 to draw 
+end function
+  display game over
+cactus advancer
+  cactus.pos++;
+cactus maker
+  make one...
+randomizer
+  spit out a random number
+key inputer
+  lalalala
+main loop
+  idk
+
+*/
 String[] dinoGame = {
   ""
   
@@ -40,7 +59,7 @@ String[] dinoGame = {
 void draw() {
   if (done) return;
 
-  int stepsPerFrame = 50000;
+  int stepsPerFrame = 100000;
 
   for (int i = 0; i < stepsPerFrame; i++) {
     if (proc.getPlace() >= proc.getInstr().length) {
