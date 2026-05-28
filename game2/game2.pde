@@ -18,17 +18,17 @@ void setup() {
     "end 0"
   };
 String[] program = {
-  "mov 0 $20000",          // pointer starts at 255
-  "mea 0 $FFFF00FF",    // write blue at pixels[pixels[0]]
-  "add 0 $1",           // pointer++
-  "mov 1 $40000",       // limit
-  "sub 1 0",            // [1] = 0x40000 - [0]
-  "cmp 1",              // [1] = 1 while still below limit
-  "jmp 1 $1",           // loop back to mea
+  "mov 2 $20000",          // pointer starts at 255
+  "mea 2 $FFFF00FF",    // write blue at pixels[pixels[0]]
+  "add 2 $1",           // pointer++
+  "mov 3 $30000",       // limit
+  "sub 3 2",            // [1] = 0x40000 - [0]
+  "cmp 3",              // [1] = 1 while still below limit
+  "jmp 3 $1",           // loop back to mea
   "end 0"
 };
 /*
-//add a random assembly instruction and a keyboard instructiuon
+//[0] and [1] are used for key and rand
 
 sprite copier:
   after each row add 512 to draw 
@@ -47,8 +47,53 @@ main loop
 
 */
 String[] dinoGame = {
-  ""
+  "",
+//main
+  //set color
+  "mov 2 $20000",                //0 pointer starts at 255
+  "mea 2 $FFFF00FF",             //1 COLOR
+  "add 2 $1",                    //2 pointer++
+  "mov 3 $30000",                //3 limit
+  "sub 3 2",                     //4 [1] = 0x40000 - [0]
+  "cmp 3",                       //5 [1] = 1 while still below limit
+  "jmp 3 $1",                    //6 loop back to mea
+   
+  //height is in 20.
+  //cactus x is in 21.
+  "add 20 $10",
+  "sub 21 $10",
+  "sub 0 $77",
+  "cmp 0",
+  "add 0 $1", //check if its a w
+  "jmp 0 $ifW", //if W
+  "mov 0 $1",
+  "jmp 0 $notW",
+  //if w:
+  "add 20 $20",
+  //notW:
+  "push $duck",                   //7 duck
+  "push $8", //width
+  "push $40", //len
+  "mov 2 20", //height in r2
+  "shl 2 $8", //*256
+  "call $drawThingie",            //8 spritecopier
+
+  "push $cactus",                   //7 duck
+  "push $8", //width
+  "push $40", //len
+  "mov 2 20", //height in r2
+  "add 2 $AFF", //*256
+  "call $drawThingie",            //8 spritecopier
+  //check if end
+  "mov 2 21",
+  "sub 2 $40", //idk man ill figure this out later i dont wanna do this
   
+  
+//endMain
+//spriteCopier
+  "pop ",
+  
+  "end 0"
 };
   frameRate=60;
   proc = new Processor(program);
@@ -66,8 +111,13 @@ void draw() {
       done = true;
       break;
     }
+    //pixels[1] = int(random(5.0));
     proc.step(pixels);
   }
 
   updatePixels();
+}
+
+void keyPressed() {
+  pixels[0] = key;
 }
