@@ -44,7 +44,7 @@ key inputer
   lalalala
 main loop
   idk
-
+WAIT NO i MIGHT MAKE A RECT AND USE AN AVATAR THINGIE. COPIER IS TOO COMPLEX....
 */
 String[] dinoGame = {
   "",
@@ -76,6 +76,7 @@ String[] dinoGame = {
   "push $40", //len
   "mov 2 20", //height in r2
   "shl 2 $8", //*256
+  "push 2",
   "call $drawThingie",            //8 spritecopier
 
   "push $cactus",                   //7 duck
@@ -83,6 +84,7 @@ String[] dinoGame = {
   "push $40", //len
   "mov 2 20", //height in r2
   "add 2 $AFF", //*256
+  "push 2",
   "call $drawThingie",            //8 spritecopier
   //check if end
   "mov 2 21",
@@ -91,7 +93,21 @@ String[] dinoGame = {
   
 //endMain
 //spriteCopier
-  "pop ",
+  "pop 2", //coor
+  "pop 3", //len
+  "pop 4", //width
+  "pop 5", //ptr
+  
+  "mov 6 5",          // pointer starts at 255
+  //looper
+  "mea 6 $FFFF00FF",    // write blue at pixels[pixels[0]]
+  "add 6 $1",           // pointer++
+  "mov 7 $30000",       // limit
+  "sub 7 6",            // [1] = 0x40000 - [0]
+  "cmp 7",              // [1] = 1 while still below limit
+  "jmp 7 $looper",           // loop back to mea
+  "ret 0",
+  
   
   "end 0"
 };
