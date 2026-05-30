@@ -59,8 +59,12 @@ class Processor {
         currentPart = ram[instruction[1]];} break;
       case 13: currentPart = stack.pop();break;                                      //ret
       case 14: ram[ram[instruction[1]]] = op2; break;                          //mea moves to the place that the thing points to... like a 2d mov
+      case 15: updatePixels(); 
+      fill(ram[instruction[1]+4]);stroke(ram[instruction[1]+4]); 
+      rect(ram[instruction[1]], ram[instruction[1]+1], ram[instruction[1]+2], ram[instruction[1]+3]);
+      loadPixels(); break;
     }
-    
+  
     currentPart++;
   }
 }

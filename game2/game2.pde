@@ -25,94 +25,76 @@ String[] program = {
   "sub 3 2",            // [1] = 0x40000 - [0]
   "cmp 3",              // [1] = 1 while still below limit
   "jmp 3 $1",           // loop back to mea
+
+  
+  "mov 2 $20",
+  "mov 3 $30",
+  "shl 3 $0",
+  "mov 4 $2F",
+  "mov 5 $2F",
+  "mov 6 $FFFFFFFF",
+  "rec 2",
+  
   "end 0"
 };
 /*
 //[0] and [1] are used for key and rand
 
-sprite copier:
-  after each row add 512 to draw 
-end function
-  display game over
-cactus advancer
-  cactus.pos++;
-cactus maker
-  make one...
-randomizer
-  spit out a random number
-key inputer
-  lalalala
-main loop
-  idk
-WAIT NO i MIGHT MAKE A RECT AND USE AN AVATAR THINGIE. COPIER IS TOO COMPLEX....
+
 */
 String[] dinoGame = {
-  "",
+  "mov 20 $FF",
+  "mov 21 $FF",
 //main
   //set color
+  /*
   "mov 2 $20000",                //0 pointer starts at 255
   "mea 2 $FFFF00FF",             //1 COLOR
   "add 2 $1",                    //2 pointer++
-  "mov 3 $30000",                //3 limit
+  "mov 3 $40000",                //3 limit
   "sub 3 2",                     //4 [1] = 0x40000 - [0]
   "cmp 3",                       //5 [1] = 1 while still below limit
-  "jmp 3 $1",                    //6 loop back to mea
-   
+  "jmp 3 $3",                    //6 loop back to mea
+  */
+  "mov 2 $0", "mov 3 $FF", "mov 4 $2FF", "mov 5 $FF", "mov 6 $FFFF00FF", "rec 2",
   //height is in 20.
   //cactus x is in 21.
   "add 20 $10",
   "sub 21 $10",
-  "sub 0 $77",
-  "cmp 0",
-  "add 0 $1", //check if its a w
-  "jmp 0 $ifW", //if W
-  "mov 0 $1",
-  "jmp 0 $notW",
+  "mov 2 0",
+  "sub 2 $20",
+  "cmp 2",
+  "add 2 $1", //check if its a w
+  "mov 1F .", //jump to ifW
+  "add 1F $7",
+  "jmp 2 1F", //if W
+  "mov 2 $1",
+  "mov 1F .",
+  "add 1F $4", //jump to notW
+  "jmp 2 1F",
   //if w:
-  "add 20 $20",
+  "sub 20 $20",
   //notW:
-  "push $duck",                   //7 duck
-  "push $8", //width
-  "push $40", //len
-  "mov 2 20", //height in r2
-  "shl 2 $8", //*256
-  "push 2",
-  "call $drawThingie",            //8 spritecopier
-
-  "push $cactus",                   //7 duck
-  "push $8", //width
-  "push $40", //len
-  "mov 2 20", //height in r2
-  "add 2 $AFF", //*256
-  "push 2",
-  "call $drawThingie",            //8 spritecopier
+  //duck:
+  "mov 2 $20",
+  "mov 3 20",
+  "mov 4 $2F",
+  "mov 5 $2F",
+  "mov 6 $FF0000FF",
+  "rec 2",
+  //cactus:
   //check if end
   "mov 2 21",
   "sub 2 $40", //idk man ill figure this out later i dont wanna do this
-  
-  
+  "mov 2 $1",
+  "jmp 2 $2",
 //endMain
-//spriteCopier
-  "pop 2", //coor
-  "pop 3", //len
-  "pop 4", //width
-  "pop 5", //ptr
-  
-  "mov 6 5",          // pointer starts at 255
-  //looper
-  "mea 6 $FFFF00FF",    // write blue at pixels[pixels[0]]
-  "add 6 $1",           // pointer++
-  "mov 7 $30000",       // limit
-  "sub 7 6",            // [1] = 0x40000 - [0]
-  "cmp 7",              // [1] = 1 while still below limit
-  "jmp 7 $looper",           // loop back to mea
-  "ret 0",
-  
   
   "end 0"
 };
+
   frameRate=60;
-  proc = new Processor(program);
+  proc = new Processor(dinoGame);
   done = false;
   loadPixels();
   time = 0;
@@ -120,7 +102,7 @@ String[] dinoGame = {
 void draw() {
   if (done) return;
 
-  int stepsPerFrame = 100000;
+  int stepsPerFrame = 5;
 
   for (int i = 0; i < stepsPerFrame; i++) {
     if (proc.getPlace() >= proc.getInstr().length) {

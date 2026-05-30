@@ -10,20 +10,21 @@ class Assembler {
   public int[][] assemble(String[] pgm) {
     int[][] out = new int[pgm.length][4];
     int i = 0;
-    for (String lineString: pgm) {
-      String[] line = lineString.split("\\s+");
+    for (int index = 0; index < pgm.length; index++) {
+      String[] line = pgm[index].split("\\s+");
       if (line.length != 0) {
         String instr = line[0];
         int in = 0;
         int op1 = 0;
         int op2 = 0;
         int op2int = 0;
-        if (line[0].charAt(0) != '#') {//comment
+ 
           if (line.length > 1) {
-            op1 = int(line[1].substring(0));
+            op1 = unhex(line[1].substring(0));
           }
           if (line.length > 2) {
             if (line[2].charAt(0) == '$') {op2int = (int) unhex(line[2].substring(1)); op2 = -1;}
+            else if (line[2].equals(".")) {op2int = index; op2 = -1;}
             else {op2 = unhex(line[2]); op2int = 0;}
           }
           /*
@@ -55,6 +56,7 @@ class Assembler {
             case "cll": in = 12; break;
             case "ret": in = 13; break;
             case "mea": in = 14; break; //mov but it moves mov ((input-addr)) thing
+            case "rec": in = 15; break;
           }
           out[i][0] = in;
           out[i][1] = op1;
@@ -63,7 +65,7 @@ class Assembler {
           i++;
         }
       }
-    }
+    
     return out;
   }  
 }
