@@ -57,6 +57,7 @@ class Assembler {
             case "ret": in = 13; break;
             case "mea": in = 14; break; //mov but it moves mov ((input-addr)) thing
             case "rec": in = 15; break;
+            case "ref": in = 16; break;
           }
           out[i][0] = in;
           out[i][1] = op1;

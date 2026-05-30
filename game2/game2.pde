@@ -5,18 +5,6 @@ void setup() {
   //String[] program = loadStrings("http://homer.stuy.edu/~dberkovich70/dinosaur.txt");
   size(512,512);
   background(0);
-  String[] program1 = {
-    "mov 0 $FF",
-    "mov 0 $FF",
-    "mea 0 $FF0000FF",//2
-    "add 0 $1",
-    "mov 1 0",
-    "sub 1 $FFF",
-    "cmp 1",
-    "mul 1, $-1",
-    "jmp 1 $2",
-    "end 0"
-  };
 String[] program = {
   "mov 2 $20000",          // pointer starts at 255
   "mea 2 $FFFF00FF",    // write blue at pixels[pixels[0]]
@@ -83,10 +71,18 @@ String[] dinoGame = {
   "mov 6 $FF0000FF",
   "rec 2",
   //cactus:
+  "mov 2 21",
+  "mov 3 $180",
+  "mov 4 $2F",
+  "mov 5 $2F",
+  "mov 6 $FF00FFFF",
+  "rec 2",  
+
   //check if end
   "mov 2 21",
   "sub 2 $40", //idk man ill figure this out later i dont wanna do this
   "mov 2 $1",
+  "ref 0",
   "jmp 2 $2",
 //endMain
   
@@ -102,7 +98,7 @@ String[] dinoGame = {
 void draw() {
   if (done) return;
 
-  int stepsPerFrame = 5;
+  int stepsPerFrame = 2;
 
   for (int i = 0; i < stepsPerFrame; i++) {
     if (proc.getPlace() >= proc.getInstr().length) {
@@ -113,7 +109,7 @@ void draw() {
     proc.step(pixels);
   }
 
-  updatePixels();
+  //updatePixels();
 }
 
 void keyPressed() {
